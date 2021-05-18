@@ -1,11 +1,9 @@
 package ru.netology.manager;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Movie;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static ru.netology.manager.MovieManager.*;
 
 public class MovieManagerTest {
     private MovieManager manager = new MovieManager();
@@ -22,8 +20,34 @@ public class MovieManagerTest {
     private Movie eleventh = new Movie(11, "Тьма", "триллер");
 
 
-    @BeforeEach
-    public void setUp() {
+    @Test
+    void shouldAddMovie() {
+        Movie[] expected = new Movie[]{first};
+        manager.add(first);
+
+        assertArrayEquals(expected, manager.getMovie());
+    }
+
+    @Test
+    void shouldShowMoviesToTDefault() {
+        Movie[] expected = new Movie[]{tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second, first};
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+        manager.add(fifth);
+        manager.add(sixth);
+        manager.add(seventh);
+        manager.add(eighth);
+        manager.add(ninth);
+        manager.add(tenth);
+
+        assertArrayEquals(expected, manager.getMovie());
+    }
+
+    @Test
+    void shouldShowIfMoviesMoreThanDefault() {
+        Movie[] expected = new Movie[]{eleventh, tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second};
         manager.add(first);
         manager.add(second);
         manager.add(third);
@@ -35,16 +59,29 @@ public class MovieManagerTest {
         manager.add(ninth);
         manager.add(tenth);
         manager.add(eleventh);
+
+        assertArrayEquals(expected, manager.getMovie());
     }
 
     @Test
-    public void showMovies() {
-        MovieManager manager = new MovieManager();
-        Movie[] actual = manager.getMovie();
-        Movie[] expected = new Movie[]{tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second,first};
-        assertArrayEquals(expected,actual);
+    void shouldShowMoviesInConstructor() {
+        MovieManager manager = new MovieManager(4);
+        Movie[] expected = new Movie[]{fourth, third, second, first};
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+
+        assertArrayEquals(expected, manager.getMovie());
+    }
+
+    @Test
+    void shouldReturnZeroMovies() {
+        MovieManager manager = new MovieManager(0);
+        Movie[] expected = new Movie[0];
+        manager.add(first);
+        manager.add(second);
+
+        assertArrayEquals(expected, manager.getMovie());
     }
 }
-
-
-
