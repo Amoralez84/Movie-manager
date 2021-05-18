@@ -3,9 +3,9 @@ package ru.netology.manager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Movie;
-import ru.netology.manager.MovieManager;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static ru.netology.manager.MovieManager.*;
 
 public class MovieManagerTest {
     private MovieManager manager = new MovieManager();
@@ -36,5 +36,15 @@ public class MovieManagerTest {
         manager.add(tenth);
         manager.add(eleventh);
     }
+
+    @Test
+    public void showMovies() {
+        MovieManager manager = new MovieManager();
+        Movie[] actual = manager.getMovie();
+        Movie[] expected = new Movie[]{tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second,first};
+        assertArrayEquals(expected,actual);
+    }
 }
+
+
 

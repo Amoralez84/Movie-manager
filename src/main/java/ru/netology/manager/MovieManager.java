@@ -1,6 +1,5 @@
 package ru.netology.manager;
 
-import net.sf.saxon.expr.Component;
 import ru.netology.domain.Movie;
 
 public class MovieManager {
@@ -24,18 +23,19 @@ public class MovieManager {
         items = tmp;
     }
 
-    public Object getMovie() {
-        if (userNumber > number) {
-            Movie[] result = new Movie[10];
+    public Movie[] getMovie() {
+        int temp = items.length;
+        if (userNumber <= 0) {
+            if (number < temp) {
+                temp = number;
+            }
         } else {
-            Movie[] result = new Movie[userNumber];
+            if (userNumber < temp) {
+                temp = userNumber;
+            }
         }
-        Movie[] result = new Movie[items.length];
-        for (int i = 0; i < result.length; i++) {
-            int index = items.length - i - 1;
-            result[i] = items[index];
-        }
+        Movie[] result = new Movie[temp];
         return result;
     }
-
 }
+
